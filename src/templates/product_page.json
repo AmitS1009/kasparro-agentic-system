@@ -1,0 +1,12 @@
+{
+    "title": "{logic.product_name}",
+    "price": "{logic.price_formatted}",
+    "description_section": {
+        "headline": "Experience Radiant Skin",
+        "key_benefits": "{logic.benefits_list}",
+        "ingredients_highlight": "{logic.ingredients}"
+    },
+    "technical_specs": {
+        "ingredients": "{logic.ingredients}"
+    }
+}

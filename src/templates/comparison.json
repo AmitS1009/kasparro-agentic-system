@@ -1,0 +1,5 @@
+{
+    "title": "{logic.product_name} vs {logic.competitor_name}",
+    "intro": "See how we stack up against the competition.",
+    "comparison_chart": "{logic.comparison_table}"
+}
