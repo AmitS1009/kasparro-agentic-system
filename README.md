@@ -15,7 +15,7 @@
 Gone are the days of fragile linear scripts. Kasparro utilizes **LangGraph** to enforce a stateful, verifiable workflow where every agent is a node with strict contracts.
 
 ```mermaid
-graph LR
+graph TD
     START((Start)) --> Parser[Data Parser Node]
     
     subgraph "Agentic Workflow"
@@ -28,10 +28,10 @@ graph LR
     
     Writer --> END((Artifact Generation))
 
-    style Parser fill:#e1f5fe,stroke:#01579b,stroke-width:2px
-    style Strategist fill:#fff3e0,stroke:#e65100,stroke-width:2px
-    style Writer fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
-    style Validator fill:#ffebee,stroke:#c62828,stroke-width:2px,stroke-dasharray: 5 5
+    style Parser fill:#e1f5fe,stroke:#01579b,stroke-width:2px,color:#000
+    style Strategist fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#000
+    style Writer fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px,color:#000
+    style Validator fill:#ffebee,stroke:#c62828,stroke-width:2px,stroke-dasharray: 5 5,color:#000
 ```
 
 ---
