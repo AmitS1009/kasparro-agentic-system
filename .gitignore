@@ -7,3 +7,5 @@ outputs/
 .vscode/
 
 projectdocumentation.md
+
+test_gemini.py

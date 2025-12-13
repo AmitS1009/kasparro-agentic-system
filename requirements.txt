@@ -3,3 +3,7 @@ python-dotenv
 openai
 google-generativeai
 requests
+langgraph
+langchain
+langchain-openai
+langchain-google-genai

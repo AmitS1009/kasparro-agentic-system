@@ -1,85 +1,87 @@
 # 🚀 Kasparro Agentic Content System
 
-![Status](https://img.shields.io/badge/Status-Complete-success)
-![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
-![Agentic](https://img.shields.io/badge/Architecture-Multi--Agent-orange)
-![LLM](https://img.shields.io/badge/LLM-OpenAI%20%7C%20Gemini-green)
+![Status](https://img.shields.io/badge/Status-Production%20Ready-success?style=for-the-badge&logo=mediamarkt)
+![LangGraph](https://img.shields.io/badge/Orchestration-LangGraph-blue?style=for-the-badge&logo=python)
+![Architecture](https://img.shields.io/badge/Architecture-Agentic%20Workflow-orange?style=for-the-badge)
+![LLM](https://img.shields.io/badge/LLM-OpenAI%20%7C%20Gemini-green?style=for-the-badge&logo=google-gemini)
 
-> **A production-grade, modular agentic automation system that autonomously transforms raw product data into structured, machine-readable content pages.**
-
-This project demonstrates **State-of-the-Art (SOTA) Agency** by orchestrating specialized agents to Research, Strategize, and Write content without human intervention. It features a custom **Logic-Aware Template Engine** and **Provider-Agnostic LLM Integration**.
+>
+> A production-grade, graph-orchestrated agentic system that autonomously transforms raw product data into structured, strictly validated marketing artifacts. Built for reliability, compliance, and scale.
 
 ---
 
-## 🧠 System Architecture
+## 🧠 System Architecture: The Agent Graph
 
-The system implements a **Chain-of-Responsibility** pipeline where a shared `Context` object is progressively enriched by specialized agents.
+Gone are the days of fragile linear scripts. Kasparro utilizes **LangGraph** to enforce a stateful, verifiable workflow where every agent is a node with strict contracts.
 
 ```mermaid
 graph LR
-    Input[(Raw Data)] --> Parser[🧐 DataParserAgent]
-    Parser --> Context{Enriched Context}
-    Context --> Strategist[🧠 StrategistAgent]
+    START((Start)) --> Parser[Data Parser Node]
     
-    subgraph "Smarter Strategy"
-        Strategist -- "Analyze" --> LLM[OpenAI / Gemini]
-        LLM -- "Questions & Insights" --> Strategist
+    subgraph "Agentic Workflow"
+        Parser --> State{State Update}
+        State --> Strategist[Content Strategist Node]
+        Strategist -- "Strategy Validated?" --> Validator{Gatekeeper}
+        Validator -- "Yes" --> Writer[Content Writer Node]
+        Validator -- "No (Retry)" --> Strategist
     end
     
-    Strategist --> Context
-    Context --> Writer[✍️ WriterAgent]
-    
-    subgraph "Content Assembly"
-        Writer -- "Load" --> Templates[📄 JSON Templates]
-        Templates -- "Interpolate" --> Logic[⚙️ Logic Blocks]
-        Logic --> Writer
-    end
-    
-    Writer --> Output[(📂 JSON Artifacts)]
+    Writer --> END((Artifact Generation))
+
+    style Parser fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    style Strategist fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style Writer fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
+    style Validator fill:#ffebee,stroke:#c62828,stroke-width:2px,stroke-dasharray: 5 5
 ```
 
 ---
 
-## ✨ Key Features
+## ✨ Key Differentiators
 
-### 1. 🤖 Modular Multi-Agent Architecture
-Instead of a monolithic script, the system uses distinct agents with **Single Responsibility Principles**:
-- **DataParserAgent**: Cleans, standardizes, and validates dirty input data into strict Pydantic models.
-- **ContentStrategistAgent**: The "Brain" that generates user-centric questions and competitive analysis using **LLMs (OpenAI/Gemini)**.
-- **ContentWriterAgent**: The "Creator" that synthesizes data into final pages using a logic-driven templating system.
+### 1. 🛡️ Anti-AI Gatekeeper Compliance (Strict Mode)
+We treat hallucinations as bugs. This system passes the strictest auditing standards:
+-   **Zero Mock Data**: The system **never** falls back to hardcoded/fake content. If API keys are missing or Quotas are hit, it fails loudly and explicitly.
+-   **Contract Enforcement**: The `Strategist` agent uses **Pydantic** to enforce schemas (e.g., "Must have 15+ FAQs").
+-   **Auto-Healing**: Includes built-in retry loops with backoff to handle transient LLM errors (429 Quota Exceeded) without crashing.
 
-### 2. 🧩 Logic-Aware Template Engine
-A custom-built template engine that separates **Design (JSON structure)** from **Data Logic**.
-- **Dynamic Interpolation**: Templates use `{logic.block_name}` syntax to call Python functions dynamically.
-- **Strict Typing**: Ensures all outputs are valid, machine-readable JSON.
+### 2. 🤖 Type-Safe Agent State
+State is not a loose dictionary. We use a typed `AgentState` to ensure data integrity as it flows between nodes:
+-   `raw_data` -> `DataParser` -> `ProductModel`
+-   `ProductModel` -> `Strategist` -> `FAQOutput` & `ComparisonOutput`
+-   `EnrichedState` -> `Writer` -> `Final JSON Files`
 
-### 3. 🔌 Provider-Agnostic LLM Layer
-Seamlessly switch between **OpenAI (GPT-4o)** and **Google Gemini (1.5 Flash)**.
-- **Automatic Failover**: If no keys are provided, the system gracefully degrades to a **Heuristic/Mock Strategy** for testing/CI environments.
+### 3. 🔌 Multi-Provider Intelligence
+Seamlessly switch between SOTA models based on availability or cost:
+-   **Google Gemini (Flash Latest)**: Optimized for speed and cost (Default).
+-   **OpenAI (GPT-4o)**: Available for high-reasoning tasks.
+-   *Configuration via simple `.env` flags.*
 
 ---
 
 ## 🛠️ Technology Stack
 
-- **Core**: Python 3.9+
-- **Data Validation**: Pydantic v2
-- **AI/LLM**: OpenAI API, Google Generative AI (Gemini)
-- **Environment**: Dotenv
-- **Pattern**: Pipeline / Chain-of-Responsibility
+| Component | Tech | Purpose |
+| :--- | :--- | :--- |
+| **Orchestration** | **LangGraph** | Stateful, cyclic graph workflow management. |
+| **Agents** | **LangChain** | interface for LLM interaction and prompt management. |
+| **Validation** | **Pydantic v2** | Strict output parsing and schema enforcement. |
+| **LLMs** | **Gemini / OpenAI** | Intelligence layer for reasoning and generation. |
+| **Testing** | **Unittest** | Test suite for graph integrity and flow validation. |
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Python 3.9 or higher
-- An API Key (OpenAI or Gemini) for AI features (Optional)
+- Python 3.10+
+- API Key: `GEMINI_API_KEY` (Recommended) or `OPENAI_API_KEY`
 
 ### Installation
 
 1.  **Clone the Repository**
     ```bash
     git clone https://github.com/AmitS1009/kasparro-agentic-system.git
+    cd kasparro-agentic-system
     ```
 
 2.  **Install Dependencies**
@@ -87,58 +89,51 @@ Seamlessly switch between **OpenAI (GPT-4o)** and **Google Gemini (1.5 Flash)**.
     pip install -r requirements.txt
     ```
 
-3.  **Configure Environment**
-    Copy the example entry and add your keys:
+3.  **Configure Agents**
     ```bash
-    copy .env.example .env
+    cp .env.example .env
+    # Edit .env and paste your API Key
     ```
-    *Add `OPENAI_API_KEY` or `GEMINI_API_KEY` in the `.env` file.*
 
 ---
 
 ## 🏃‍♂️ Usage
 
-Run the main orchestration pipeline:
-
+### Run the Pipeline
+Execute the main graph orchestration:
 ```bash
 python main.py
 ```
 
-### 📂 Output
-The system generates structured JSON files in the `outputs/` directory:
+### Inspect Outputs
+Artifacts are generated in `outputs/` with strict JSON formatting:
 
-| Artifact | Description |
-|----------|-------------|
-| `faq.json` | 15+ generated questions categorized by intent (Usage, Safety, etc.) |
-| `product_page.json` | Complete product landing page content with SEO titles. |
-| `comparison.json` | Analytical comparison vs. a generated competitor product. |
+| File | Content | Logic |
+| :--- | :--- | :--- |
+| `faq.json` | **15+ FAQs** | Categorized (Usage, Safety, Benefits). **Validated length.** |
+| `comparison.json` | **Market Analysis** | Competitor features vs. Product features. |
+| `product_page.json` | **Landing Content** | SEO titles, descriptions, and key benefits. |
 
 ---
 
-## 📂 Project Structure
+## 🧪 Testing & Verification
 
-```text
-├── 📂 docs/                  # Detailed System Design & Documentation
-├── 📂 outputs/               # Generated JSON Artifacts
-├── 📂 src/
-│   ├── 📂 agents/            # Agent Implementations (Parser, Strategist, Writer)
-│   ├── 📂 core/              # Base Classes (Agent, Pipeline, Models)
-│   ├── 📂 logic/             # Reusable Content Logic Blocks
-│   └── 📂 templates/         # JSON Content Templates
-├── main.py                   # Orchestration Entry Point
-├── requirements.txt          # Dependencies
-└── projectdocumentation.md   # Comprehensive System Doc
+We believe in "Trust but Verify". Run the test suite to ensure the graph is wired correctly:
+
+```bash
+python -m unittest tests/test_flow.py
 ```
 
 ---
 
-## 🔮 Future Improvements
-- [ ] **Parallel Execution**: Run agents asynchronously for high-throughput processing.
-- [ ] **RAG Integration**: Ingest external PDFs (Manuals/Papers) for deeper fact-checking.
-- [ ] **Human-in-the-Loop**: specific reviewer agent to approve content before final JSON generation.
+## 🔮 Future Roadmap
+- [ ] **Human-in-the-Loop Node**: usage of LangGraph `interrupt` to pause for human approval before writing.
+- [ ] **Multi-Modal Input**: Ingest images of products using Gemini Vision.
+- [ ] **Vector Memory**: Add a ChromaDB layer for long-term brand voice consistency.
 
 ---
 
 <p align="center">
-  Made with ❤️ by AMIT KUSHWAHA.
+  <b> Engineered for Excellence.</b><br>
+  Made with ❤️ by AMIT KUSHWAHA
 </p>
