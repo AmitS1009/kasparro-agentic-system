@@ -74,7 +74,7 @@ Seamlessly switch between SOTA models based on availability or cost:
 
 ### Prerequisites
 - Python 3.10+
-- API Key: `GEMINI_API_KEY` (Recommended) or `OPENAI_API_KEY`
+- API Key: `GEMINI_API_KEY` or `OPENAI_API_KEY`
 
 ### Installation
 
