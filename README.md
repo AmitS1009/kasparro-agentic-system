@@ -39,19 +39,19 @@ graph TD
 ## ✨ Key Differentiators
 
 ### 1. 🛡️ Anti-AI Gatekeeper Compliance (Strict Mode)
-We treat hallucinations as bugs. This system passes the strictest auditing standards:
+I treat hallucinations as bugs. This system passes the strictest auditing standards:
 -   **Zero Mock Data**: The system **never** falls back to hardcoded/fake content. If API keys are missing or Quotas are hit, it fails loudly and explicitly.
 -   **Contract Enforcement**: The `Strategist` agent uses **Pydantic** to enforce schemas (e.g., "Must have 15+ FAQs").
 -   **Auto-Healing**: Includes built-in retry loops with backoff to handle transient LLM errors (429 Quota Exceeded) without crashing.
 
 ### 2. 🤖 Type-Safe Agent State
-State is not a loose dictionary. We use a typed `AgentState` to ensure data integrity as it flows between nodes:
+State is not a loose dictionary. I use a typed `AgentState` to ensure data integrity as it flows betIen nodes:
 -   `raw_data` -> `DataParser` -> `ProductModel`
 -   `ProductModel` -> `Strategist` -> `FAQOutput` & `ComparisonOutput`
 -   `EnrichedState` -> `Writer` -> `Final JSON Files`
 
 ### 3. 🔌 Multi-Provider Intelligence
-Seamlessly switch between SOTA models based on availability or cost:
+Seamlessly switch betIen SOTA models based on availability or cost:
 -   **Google Gemini (Flash Latest)**: Optimized for speed and cost (Default).
 -   **OpenAI (GPT-4o)**: Available for high-reasoning tasks.
 -   *Configuration via simple `.env` flags.*
@@ -118,7 +118,7 @@ Artifacts are generated in `outputs/` with strict JSON formatting:
 
 ## 🧪 Testing & Verification
 
-We believe in "Trust but Verify". Run the test suite to ensure the graph is wired correctly:
+I believe in "Trust but Verify". Run the test suite to ensure the graph is wired correctly:
 
 ```bash
 python -m unittest tests/test_flow.py
@@ -135,5 +135,5 @@ python -m unittest tests/test_flow.py
 
 <p align="center">
   <b> Engineered for Excellence.</b><br>
-  Made with ❤️ by AMIT KUSHWAHA
+  Made by AMIT KUSHWAHA
 </p>
